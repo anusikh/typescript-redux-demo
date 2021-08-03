@@ -1,4 +1,12 @@
-import { createStore } from 'redux'
-import {notesReducer} from './notesReducer'
+import { compose, createStore } from "redux";
+import { notesReducer } from "./notesReducer";
 
-export const store = createStore(notesReducer)
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+  }
+}
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+export const store = createStore(notesReducer, composeEnhancers());

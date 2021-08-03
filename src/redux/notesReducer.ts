@@ -2,10 +2,12 @@ import { Action } from "./actions";
 
 export interface NotesState {
   notes: string[];
+  clicked: number;
 }
 
 const initialState = {
   notes: [],
+  clicked: -1,
 };
 
 export const notesReducer = (
@@ -19,6 +21,9 @@ export const notesReducer = (
     case "DEL_NOTE": {
       const no = state.notes.filter((note, i) => i !== action.payload);
       return { ...state, notes: no };
+    }
+    case "SET_CLICKED": {
+      return { ...state, clicked: action.payload };
     }
     default:
       return state;
