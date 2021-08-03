@@ -1,8 +1,9 @@
 import React from "react";
 import { NoteInput } from "./component/NoteInput";
+import { DelNote } from "./component/DelNote";
 import { useSelector, useDispatch } from "react-redux";
 import { NotesState } from "./redux/notesReducer";
-import { addNote } from "./redux/actions";
+import { addNote, delNote } from "./redux/actions";
 
 function App() {
   const notes = useSelector<NotesState, NotesState["notes"]>(
@@ -14,16 +15,25 @@ function App() {
     dispatch(addNote(note));
   };
 
+  const onDel = (num: number) => {
+    dispatch(delNote(num));
+  };
+
   return (
-    <>
+    <div className="App">
       <NoteInput addNote={onAdd} />
       <hr />
       <ol>
-        {notes.map((note) => {
-          return <li key={note}>{note}</li>;
+        {notes.map((note, idx) => {
+          return (
+            <div>
+              <li key={note}>{note}</li>
+              <DelNote delNote={onDel} i={idx} />
+            </div>
+          );
         })}
       </ol>
-    </>
+    </div>
   );
 }
 
