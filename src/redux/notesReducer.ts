@@ -25,6 +25,10 @@ export const notesReducer = (
     case "SET_CLICKED": {
       return { ...state, clicked: action.payload };
     }
+    case "UPD_NOTE": {
+      state.notes[state.clicked] = action.payload;
+      return { ...state };
+    }
     default:
       return state;
   }

@@ -4,7 +4,7 @@ import { DelNote } from "./component/DelNote";
 import { EditNote } from "./component/EditNote";
 import { useSelector, useDispatch } from "react-redux";
 import { NotesState } from "./redux/notesReducer";
-import { addNote, delNote, setClicked } from "./redux/actions";
+import { addNote, delNote, setClicked, updNote } from "./redux/actions";
 
 function App() {
   const notes = useSelector<NotesState, NotesState["notes"]>(
@@ -29,6 +29,10 @@ function App() {
     dispatch(setClicked(num));
   };
 
+  const onUpd = (note: string) => {
+    dispatch(updNote(note));
+  };
+
   return (
     <div className="App">
       <NoteInput addNote={onAdd} />
@@ -39,7 +43,7 @@ function App() {
             <div>
               <li key={note}>{note}</li>
               <DelNote delNote={onDel} i={idx} />
-              <EditNote setClicked={onSel} i={idx} />
+              <EditNote setClicked={onSel} i={idx} updNote={onUpd} />
               <button
                 onClick={() => {
                   console.log(clicked);
